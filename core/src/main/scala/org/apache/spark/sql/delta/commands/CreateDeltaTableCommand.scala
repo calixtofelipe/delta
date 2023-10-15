@@ -421,8 +421,14 @@ case class CreateDeltaTableCommand(
       table.storage.copy(properties = Map.empty)
     }
 
+    val newSchema = if (conf.getConf(DeltaSQLConf.DELTA_SAVE_SCHEMA_GLUE_CATALOG_ENABLED)) {
+      table.schema.copy()
+    } else {
+      new StructType()
+    }
+
     table.copy(
-      schema = new StructType(),
+      schema = newSchema,
       properties = Map.empty,
       partitionColumnNames = Nil,
       // Remove write specific options when updating the catalog

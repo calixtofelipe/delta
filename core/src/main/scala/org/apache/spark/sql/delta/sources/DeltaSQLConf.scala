@@ -1151,6 +1151,13 @@ trait DeltaSQLConfBase {
           |Only change this for testing!""".stripMargin)
       .booleanConf
       .createWithDefault(true)
+  val DELTA_SAVE_SCHEMA_GLUE_CATALOG_ENABLED =
+    buildConf("saveSchema.GlueCatalogCheck")
+      .internal()
+      .doc(
+        """Don't clean up the schema when create table and glue catalog enabled""".stripMargin)
+      .booleanConf
+      .createWithDefault(false)
 }
 
 object DeltaSQLConf extends DeltaSQLConfBase
